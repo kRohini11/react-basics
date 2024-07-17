@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const Child = (props) => {
+
+            const [textVal, settextVal] = React.useState();
+            const handleClick = () => {
+                props.fCall(textVal)
+                // alert("click")
+            }
+            const changedVal = (eve) => {
+                settextVal(eve.target.value)
+                console.log(eve.target.value)
+            }
+            return <div>
+
+                <p>Input:<input onChange={changedVal} /></p>
+                <p><button onClick={handleClick}>ChildToParent</button></p>
+
+            </div>
+        }
+        const App = () => {
+
+            const [data, setData] = React.useState();
+            const f1 = (data) => {
+                setData(data);
+                //alert("f1 call" + data)
+            }
+            return <div>
+                <h1>Parent:{data}</h1>
+                <Child fCall={f1} />
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

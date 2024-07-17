@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+    <style>
+        .box {
+            border: 1px solid black;
+            display: inline-block;
+            line-height: 100px;
+            width: 100px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div_Id"></div>
+
+    <script type="text/babel">
+
+        function Box(obj) {
+            return <div className="box">{obj.no}</div>
+        }
+
+        function App() {
+            return <div><div><Box no="1" /><Box no="2" /></div>
+                <div><Box no="3" /><Box no="4" /></div></div>
+        }
+
+        var containerRef = document.getElementById("div_Id");
+        var result = ReactDOM.createRoot(containerRef);
+
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

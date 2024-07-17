@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const List = (props) => {
+            const { data, heading } = props;
+            return <div>
+                <h1>{heading}</h1>
+                <ol>{
+                    data.map((ele, inx) => {
+                        return <li key={`list_${inx}`}>{ele}</li>
+                    })
+                }
+                </ol>
+            </div>
+
+        }
+        const App = () => {
+            const data = [
+                {
+                    title: "Players",
+                    items: ["Sachin", "Dhoni", "Virat"]
+                },
+                {
+                    title: "Students",
+                    items: ["s1", "s2", "s3", "s4", "s5"]
+                }
+            ]
+
+            return <div>
+                {
+                    data.map((ele, indx) => {
+                        return <List key={`list_${indx}`} data={ele.items} heading={ele.title} />
+                    })
+                }
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

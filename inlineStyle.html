@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+    <style>
+        #board {
+            border: 1px solid black;
+            height: 300px;
+            width: 500px;
+            display: inline-block;
+            position: relative;
+        }
+
+        #board>div:first-child {
+            width: 100px;
+            border: 2px solid red;
+            display: inline-block;
+            position: absolute;
+            top: 150px;
+        }
+
+        #board>div:last-child {
+            height: 200px;
+            border: 2px solid green;
+            display: inline-block;
+            position: absolute;
+            top: 47px;
+            left: 450px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+
+            const [set,setVal]=React.useState(0);
+
+            const btnClick =() =>{
+                //alert("Dvfd");
+                // setVal(345);
+                // let i=0;
+                const intervalId=setInterval(()=>{
+                     //console.log(i++);
+
+                     setVal((cVal)=>{
+                        if(cVal == 345){
+                            clearInterval(intervalId);
+                            return 0;
+                        }
+                        return cVal+1;
+                     });
+                    //  if(setVal==346){
+                    //     clearInterval(intervalId);
+                    // }
+
+                    // if(i==346){
+                    //     clearInterval(intervalId);
+                    // }
+                   
+                },10)
+            }
+
+            return <div>
+               
+                <div id="board">
+                    <div style={{left:set}}></div>
+                    <div></div>
+                </div>
+
+                <p><button onClick={btnClick}>Shoot</button></p>
+            </div>
+
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

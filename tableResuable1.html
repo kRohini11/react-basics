@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const List = (props) => {
+            const { data, heading } = props;
+            return <div>
+                <h1>{heading}</h1>
+                <ol>{
+                    data.map((ele, inx) => {
+                        return <li key={`list_${inx}`}>{ele}</li>
+                    })
+                }
+                </ol>
+            </div>
+
+        }
+        const App = () => {
+            const students = [
+                {
+                    name: "s1",
+                    rollno: 1
+                },
+                {
+                    name: "s2",
+                    rollno: 2
+                },
+                {
+                    name: "s3",
+                    rollno: 3
+                }
+            ]
+
+            const players = [
+                {
+                    name: "Sachin",
+                    runs: 1000,
+                    loc: "Mumbai"
+                },
+                {
+                    name: "Dhoni",
+                    runs: 2000,
+                    loc: "Delhi"
+                },
+
+            ]
+
+            return <div>
+                <table border="1px">
+                    <thead>
+                        <th>Name</th>
+                        <th>Rollno</th>
+                    </thead>
+                    <tbody>
+                        {
+                            students.map((ele, inx) => {
+                                return <tr key="tr_${inx}"><td>{ele.name}</td>
+                                    <td>{ele.rollno}</td></tr>
+                            })
+                        }
+
+                    </tbody>
+
+                </table>
+                <h1>Players</h1>
+                <table border="1px">
+                    <thead>
+                        <th>Name</th>
+                        <th>Runs</th>
+                        <th>Location</th>
+                    </thead>
+                    <tbody>
+                        {
+                            players.map((ele, inx) => {
+                                return <tr key="tr_${inx}"><td>{ele.name}</td>
+                                    <td>{ele.runs}</td>
+                                    <td>{ele.loc}</td>
+                                </tr>
+                            })
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

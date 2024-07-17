@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const useIncrement = (init) => {
+            const [cnt, setCnt] = React.useState(init);
+            const fnIncrement = () => {
+                setCnt(cnt + 1)
+            }
+            return [cnt, fnIncrement]
+        }
+        const BtnClick = () => {
+            const [cnt, fnIncrement]=useIncrement(20)
+            return <button onClick={fnIncrement}>He Clicked {cnt} times</button>
+        }
+        const TextHover = () => {
+            const [cnt, fnIncrement]=useIncrement(10)
+            return <h1 onMouseOver={fnIncrement}>He Hover {cnt} times</h1>
+        }
+        const App = () => {
+            return <div>
+                <BtnClick />
+                <TextHover />
+            </div>
+        }
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

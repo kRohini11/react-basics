@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const A = (props) => {
+            return <div>
+                <h1>Child:{props.childRef}</h1>
+            </div>
+        }
+
+        const App = () => {
+            const textRef = React.useRef(); //{current:undefined}
+            const [textVal,settextVal]=React.useState();
+            const handleClick = (eve) => {
+                settextVal(textRef.current.value);
+                //const textVal=textRef.current.value;
+               // console.log(textRef.current.value);
+               
+            }
+            return <div>
+                <h1>Parent:</h1>
+                <p>Input:<input ref={textRef} /></p>
+                <p><button onClick={handleClick}>ParentToChild</button></p>
+                <A childRef={textVal}/>
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const App = () => {
+            const [cnt, setCnt] = React.useState(0);
+            const [name, setName] = React.useState("Sachin");
+
+            const result = React.useMemo(() => {
+                console.log("5k lines of code")
+                return cnt % 2 === 0 ? "Even" : "Odd"
+            }, [cnt])
+            { /* const EvenOrOdd = () => {
+                return cnt % 2 == 0 ? "Even" : "Odd"
+            }
+        */ }
+
+            return <div>
+                <h1>{cnt}</h1>
+                <button onClick={() => setCnt(cnt + 1)}>Increment</button>
+                <button onClick={() => setCnt(cnt - 1)}>Decrement</button>
+                {  /* <h2>{EvenOrOdd()}</h2> */}
+                <h2>{result}</h2>
+                <h1>{name}</h1>
+                <button onClick={() => setName(name === "Sachin" ? "Dhoni" : "Sachin")}>Toggle</button>
+            </div>
+        }
+
+        const container = document.getElementById("root");
+        const result = ReactDOM.createRoot(container);
+
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<input type="button" value="1" id="btn1" onclick="a()" />
+<input type="button" value="1" id="btn2" onclick="b()" />
+
+<script>
+
+    function fn1() {
+        var cnt = 1;
+        return function () {
+            cnt = cnt + 1;
+            document.getElementById("btn1").value = cnt;
+        }
+
+    }
+    var a = fn1();
+
+    function fn2() {
+        var cnt = 1;
+        return function () {
+            cnt = cnt + 1;
+            document.getElementById("btn2").value = cnt;
+        }
+
+    }
+    var b = fn2();
+
+  
+</script>

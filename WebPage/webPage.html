@@ -1,0 +1,127 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+
+    <style>
+        .header {
+            background-color: blue;
+            font-weight: bold;
+            font-size: 30px;
+            line-height: 50px;
+        }
+
+        body {
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            background: antiquewhite;
+            text-align: right;
+        }
+
+        ul>li {
+            font-size: 16px;
+            cursor: pointer;
+            display: inline;
+            margin-right: 30px;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        .active {
+            color: red;
+            text-shadow: 2px 2px white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const ctx = React.createContext();
+        const { Provider } = ctx;
+        const Home = () => {
+            const ctxData = React.useContext(ctx);
+            return <h1 className="text-center my-5">{ctxData.home}</h1>
+        }
+        const About = () => {
+            const ctxData = React.useContext(ctx);
+            return <h1 className="text-center my-5">{ctxData.about}</h1>
+        }
+        const Contact = () => {
+            const ctxData = React.useContext(ctx);
+            return <h1 className="text-center my-5">{ctxData.contact}</h1>
+        }
+        //menu component
+        const Menu = () => {
+            const [menuList, setmenuList] = React.useState("h");
+            const handleClick = (eve, opt) => {
+                setmenuList(opt);
+                console.log(eve.target)
+                //alert(eve.target.id)
+            }
+            return <div>
+                <nav>
+                    {/* 
+                <ul> 
+                    <li  id="h" className={menuList === 'h' ? 'active': ''} onClick={handleClick}>Home</li>
+                    <li id="a" className={menuList === 'a' ? 'active': ''} onClick={handleClick}>About</li>
+                    <li id="c" className={menuList === 'c' ? 'active': ''} onClick={handleClick}>Contact</li>
+
+                </ul>*/}
+
+                    <ul>
+                        <li className={menuList === 'h' ? 'active' : ''} onClick={(eve) => { handleClick(eve, 'h') }}>Home</li>
+                        <li className={menuList === 'a' ? 'active' : ''} onClick={(eve) => { handleClick(eve, 'a') }}>About</li>
+                        <li className={menuList === 'c' ? 'active' : ''} onClick={(eve) => { handleClick(eve, 'c') }}>Contact</li>
+
+                    </ul>
+                </nav>
+                {menuList === 'h' && <Home />}
+                {menuList === 'a' && <About />}
+                {menuList === 'c' && <Contact />}
+            </div>
+
+        }
+        // Footer  component
+        const Footer = () => {
+            return <footer><div className={"position-fixed text-center text-white bg-success w-100 bottom-0"}>&copy; right belongs to me</div></footer>
+        }
+
+        // header component
+        const Header = () => {
+            return <header><div className={"header text-center text-white"}>React web page without routing</div></header>
+        }
+
+        // app component
+        const App = () => {
+            const data = {
+                home: "This is Home Component",
+                about: "This is About Component",
+                contact: "This is Contact Component"
+            }
+            return <div>
+                <Header />
+                <Provider value={data}>
+                    <Menu />
+                </Provider>
+                <Footer />
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

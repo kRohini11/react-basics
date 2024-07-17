@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const ctx1 = React.createContext("Sachin");
+        const { Provider: Ctx1Provider } = ctx1;
+
+        const ctx2 = React.createContext("Sachin");
+        const { Provider: Ctx2Provider } = ctx2;  //{ctx2Provider is alias}
+
+        const D = () => {
+            const ctxData = React.useContext(ctx1);
+            return <div>
+                <h1>D:{ctxData}</h1>
+            </div>
+
+        }
+        const C = () => {
+            return <div>
+                <h1>C</h1>
+                <D />
+            </div>
+        }
+        const B = () => {
+            const ctxData = React.useContext(ctx2);
+            return <div>
+                <h1>B:{ctxData}</h1>
+                <C />
+            </div>
+        }
+        const A = () => {
+            return <div>
+                <h1>A</h1>
+                <B />
+            </div>
+        }
+        const App = () => {
+            //const ctxData = React.useContext(ctx)
+
+            return <div>
+                <h1>App</h1>
+
+                {/* 
+                <ctx1.Provider value="Sachin">
+                    <ctx2.Provider value="Dhoni">
+                        <A />
+                    </ctx2.Provider>
+
+                </ctx1.Provider>
+                */}
+                <Ctx1Provider value="Sachin">
+                    <Ctx2Provider value="Dhoni">
+                        <A />
+                    </Ctx2Provider>
+
+                </Ctx1Provider>
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

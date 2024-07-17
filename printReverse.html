@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            const [result, setResult] = React.useState("");
+            const [name, setName] = React.useState("");
+            const fnChange = (eve) => {
+                setName(eve.target.value);
+            }
+            const fnClick = () => {
+                const nameRev = name.split("").reverse().join("");
+                setResult(nameRev)
+                console.log(nameRev);
+            }
+            return <div>
+                <p>
+                    <b>Name:</b>
+                    <input onChange={fnChange} />
+                </p>
+                <p>
+                    <button onClick={fnClick}>Print Reverse</button>
+                </p>
+                <p>{result}</p>
+            </div>
+        }
+
+        const container = ReactDOM.createRoot(document.getElementById("root"));
+        container.render(<App />)
+    </script>
+</body>
+
+</html>

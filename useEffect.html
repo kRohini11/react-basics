@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div if="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            const fn = () => {
+                console.log("function")
+            }
+            React.useEffect(() => {
+                fn()
+            })
+            return <div>Hello</div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+
+        const App = () => {
+
+            const players = ["Sachin", "Dhoni", "Virat"];
+
+            return <div>
+                <h1>list</h1>
+                <ol> {
+                    players.map(
+                        function (ele, index, oa) {
+                            return <li key={"li_" + index}>{ele}</li>;
+                        }
+                    )
+                }
+                </ol>
+                <h1>Dropdown</h1>
+                <select>{
+                    players.map((ele, inx) => {
+                        return <option key={`opt_${inx}`}>{ele}</option>
+                    })
+                }
+                </select>
+                <h1>Buttons</h1>
+                <div>{
+                    players.map((ele, index) => {
+                        return <button key={`button_${index}`}>{ele}</button>
+
+                    })
+                }
+                </div>
+
+                <h1>Table</h1>
+                <table border="1px">
+                    <thead><tr>
+                        <th>S.no</th>
+                        <th>Name</th>
+                        <th>View</th>
+                    </tr>
+                    </thead>
+                    <tbody>{
+                        players.map(
+                            function (ele, indx) {
+                                return <tr key={`tr_${indx}`}>
+                                    <td>{indx + 1}</td>
+                                    <td>{ele}</td>
+                                    <td><button>View</button></td>
+                                </tr>
+                            }
+                        )}
+                    </tbody>
+                </table>
+
+                <h1>Heading</h1>
+                <div>{
+                    players.map((ele, inx) => {
+                        return <h3 key={"h3_" + inx}>{ele}</h3>
+
+                    })
+                }
+                </div>
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

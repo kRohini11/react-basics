@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const App = () => {
+            const [result, setResult] = React.useState("");
+            const [data, setData] = React.useState({});
+            const fnChange = (eve) => {
+                const { id, value } = eve.target;
+                setData({ ...data, [id]: value })
+                
+            }
+            const handleClick = (opt) => {
+                const { n1, n2 } = data;
+                switch (opt) {
+                    case "add":
+                        setResult(parseInt(n1) + parseInt(n2))
+                        break;
+                    case "sub":
+                        setResult(parseInt(n1) - parseInt(n2))
+                        break;
+                    case "mul":
+                        setResult(parseInt(n1) * parseInt(n2))
+                        break;
+                    case "div":
+                        setResult(parseInt(n1) / parseInt(n2))
+                        break;
+                    case "mod":
+                        setResult(parseInt(n1) % parseInt(n2))
+                        break;
+
+                }
+            }
+            return <div>
+                <p>
+                    <b>No1:</b>
+                    <input onChange={fnChange} id="n1" type="number" />
+                </p>
+                <p>
+                    <b>No2:</b>
+                    <input onChange={fnChange} id="n2" type="number" />
+                </p>
+                <p>
+                    <button onClick={() => { handleClick("add") }}>ADD</button>
+                    <button onClick={() => { handleClick("sub") }}>SUB</button>
+                    <button onClick={() => { handleClick("mul") }}>MUL</button>
+                    <button onClick={() => { handleClick("div") }}>DIV</button>
+                    <button onClick={() => { handleClick("mod") }}>MOD</button>
+                </p>
+                <p>{result}</p>
+            </div>
+        }
+        const container = ReactDOM.createRoot(document.getElementById("root"));
+        container.render(<App />)
+    </script>
+</body>
+
+</html>

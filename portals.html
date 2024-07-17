@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <div id="App"></div>
+
+    <script type="text/babel">
+        const App1 = () => {
+            return <h2>Component 2</h2>
+        }
+        const App = () => {
+            return <div>
+                <h2>context 1 </h2>
+                {ReactDOM.createPortal(<App1 />,document.getElementById("App"))}
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

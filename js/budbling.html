@@ -1,0 +1,38 @@
+<head>
+    <style>
+        div {
+            border: 1px solid red;
+            padding: 20px
+        }
+    </style>
+</head>
+
+<body>
+
+    <div onclick="f1()">
+        <div onclick="f2()">
+            <div onclick="f3(event)">
+
+            </div>
+        </div>
+    </div>
+    <script>
+        function f1() {
+            alert("f1")
+        }
+        function f2() {
+            alert("f2")
+        }
+        function f3(eve) {
+            eve.stopPropagation();
+            alert("f3")
+        }
+        function f4(eve) {
+            console.log("body",eve)
+            alert("body")
+        }
+
+        const bodyRef = document.querySelector("body");
+        bodyRef.addEventListener("click", f4);
+    </script>
+</body>

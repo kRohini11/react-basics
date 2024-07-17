@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            const [selFile, setSelFile] = React.useState();
+            // const [base64, setBase64] = React.useState();
+
+            const fnChange = (eve) => {
+                const file = eve?.target?.files?.[0];
+                //  setSelFile(file)
+                const { size, type } = file;
+
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = () => {
+                    setSelFile(fileReader.result);
+                }
+
+                fileReader.onerror = () => {
+                    setSelFile("")
+
+                }
+
+
+            }
+            const fnBase64 = () => {
+                const dataObj = {
+                    uid: "uid",
+                    photo: selFile
+
+                }
+                console.log(dataObj)
+            }
+
+            const fnData = () => {
+                // const formData=new FormData();
+                // formData.append("uid","uid");
+                // formData.append("photo",selFile)
+
+
+            }
+            return <div>
+                <h2>file upload</h2>
+                <input type="file" onChange={fnChange} />
+                <img src={selFile} height="100px" width="100px" />
+
+                <button onClick={fnBase64}>Base 64</button>
+                <button onClick={fnData}>form Data</button>
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

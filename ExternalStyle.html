@@ -1,0 +1,64 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+    <style>
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            border: 1px solid black;
+            background: antiquewhite;
+            line-height: 40px;
+            text-align: right;
+
+        }
+
+        ul>li {
+            display: inline;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 15px;
+            margin-right: 20px;
+            cursor: pointer;
+            letter-spacing: 5px;
+        }
+
+        .active {
+            color: red;
+            text-shadow: 2px 2px 2px white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const App = () => {
+
+            const [menu, setMenu] = React.useState();
+            const fnClick = (eve) => {
+                setMenu(eve.target.innerText)
+                console.log("SDfvsd", eve.target.innerText);
+            }
+
+
+            return <ul>
+
+                <li onClick={fnClick} className={menu == "Home" ? "active" : ""}>Home</li>
+                <li onClick={fnClick} className={menu == "About" ? "active" : ""}>About</li>
+                <li onClick={fnClick} className={menu == "Contact" ? "active" : ""}>Contact</li>
+            </ul>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

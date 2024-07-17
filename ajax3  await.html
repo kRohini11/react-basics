@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const List = ({ title, data, propertyName }) => {
+            return <div>
+                <h2>{title}</h2>
+                <ol>
+                    {
+                        data?.map((obj, indx) => {
+                            return <li key={`li_${indx}`}>{obj[propertyName]}</li>
+                        })
+                    }
+
+                </ol>
+            </div>
+        }
+        const App = () => {
+            const [result, setResult] = React.useState([]);
+            const handleClick = async () => {
+                try {
+                    const response = await fetch("http://jsonplaceholder.typicode.com/posts");
+                    const responseResult = await response.json();
+                    setResult(responseResult);
+                    console.log("Success", responseResult);
+                }
+                catch {
+                    console.log("failure");
+                }
+                finally {
+                    console.log("success/failure")
+                }
+            }
+            return <div>
+                <button onClick={() => { handleClick() }}>Get Post</button>
+                {result?.length > 0 && <List title="Post" data={result} propertyName="title" />}
+            </div>
+
+        }
+
+        const container = ReactDOM.createRoot(document.getElementById("root"));
+        container.render(<App />)
+
+    </script>
+</body>
+
+</html>

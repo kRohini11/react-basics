@@ -1,0 +1,55 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const App = () => {
+
+            const no1Ref = React.useRef();
+            const no2Ref = React.useRef();
+            const no3Ref = React.useRef();
+
+            const handleClick = () => {
+                var sum = parseInt(no1Ref.current.value) + parseInt(no2Ref.current.value);
+                no3Ref.current.innerText=sum;
+                no3Ref.current.style.color=sum>100 ? "red":"green";
+                
+                // console.log(parseInt(no1Ref.current.value) + parseInt(no2Ref.current.value));
+
+                // if(sum >100){
+                //     no3Ref.current.style.color="red";
+                // }
+                // else{
+                //     no3Ref.current.style.color="green";
+                // }
+                
+            }
+
+            return <div>
+                <p><b>No1:</b><input ref={no1Ref} type="number" />
+                </p>
+                <p>
+                    <b>No2: </b>
+                    <input ref={no2Ref} type="number" />
+                </p>
+                <p><button onClick={handleClick}>Sum</button></p>
+
+                <h1 ref={no3Ref}>0</h1>
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

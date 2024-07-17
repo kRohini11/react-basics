@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <Script src="reactDOM.js"></Script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+</body>
+
+<script type="text/babel">
+    const data = [
+        'Sachin', 'Dhoni', "Virat", "Shreya", "Rohit", "Rahul", "Yuvraj", "YU", "Shami"
+    ]
+
+    const App = () => {
+        const [result, setResult] = React.useState(data);
+        const [list, setList] = React.useState("");
+        const fnChange = (eve) => {
+            // console.log(eve.target.value);
+            const list = eve.target.value;
+            const filterData = data.filter((val) => {
+                // return val.toLowerCase().includes(list.toLowerCase());
+                return val.toLowerCase();
+            })
+            setResult(filterData);
+            console.log(filterData)
+        }
+        return <div>
+            <div><b>Search:</b>
+                <input onChange={fnChange} /></div>
+            <ol>{
+                result.map((ele, index) => {
+                    return <li key={`li_${index}`}>{ele}</li>
+                })
+            }
+            </ol>
+        </div>
+    }
+
+    const container = ReactDOM.createRoot(document.getElementById("root"));
+    container.render(<App />);
+
+
+</script>
+
+</html>

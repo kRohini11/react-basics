@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const Child=()=>{
+
+            const textVal=React.useRef();
+            const handleClick=()=>{
+                console.log(textVal.current.value)
+            }
+            return <div>
+              
+                <p>Input:<input ref={textVal}/></p>
+                <p><button onClick={handleClick}>ChildToParent</button></p>
+                
+                </div>
+        }
+        const App = () => {
+         
+            return <div>
+                <h1>Parent:</h1>
+               <Child />
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+<body>
+    <div id="div_id"></div>
+    <script type="text/babel">
+        // var content="Hello Rohini";
+        //document.querySelector("div").innerHTML="HELLO"
+
+        //react
+        function Print(){
+            return <h1>HELLO ROHINI</h1>
+        }
+        function App(){
+          //  return <div><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1><h1>Hello</h1></div>
+            return <div><Print /><Print /><Print /></div>
+        }
+        var getContent=document.getElementById("div_id");
+        var result=ReactDOM.createRoot(getContent);
+         result.render(<App />)
+    </script>
+
+</body>

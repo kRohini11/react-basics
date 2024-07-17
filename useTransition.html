@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const App = () => {
+            const [name, setName] = React.useState("Sachin");
+            const [data, setData] = React.useState([]);
+            const [isLoading, setDataLoading] = React.useTransition()
+            const getData = () => {
+                setName("Dhoni");
+                const _data = [];
+                setDataLoading(() => {
+                    for (var i = 0; i <= 10000; i++) {
+                        _data.push("items" + i)
+                    }
+                })
+
+                setData(_data)
+            }
+
+            return <div>
+                <button onClick={getData}>SetData</button>
+                <h2>{name}</h2>
+                {
+                    isLoading ? "isLoading...." :
+
+                        < ol >
+
+                            {
+                                data.map((val, indx) => {
+                                    return <li key={`li_${indx}`}>{val}</li>
+                                })
+                            }
+
+                        </ol>
+                }
+            </div >
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

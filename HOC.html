@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const HOC = (Comp) => {
+
+            const MyOwn = () => {
+                const [cnt, setCnt] = React.useState(0)
+                const fnIncrement = () => {
+                    setCnt(cnt + 1)
+                }
+                return <Comp cnt={cnt} fnIncrement={fnIncrement} />
+            }
+            return MyOwn;
+        }
+
+        const BtnClick = HOC(({cnt, fnIncrement}) => {
+
+            return <button onClick={fnIncrement}>He Click {cnt} times</button>
+
+        })
+        const TextHover = HOC(({cnt, fnIncrement}) => {
+
+            return <h1 onMouseOver={fnIncrement}>He Hovered {cnt} times</h1>
+        })
+
+        const App = () => {
+            return <div>
+                <BtnClick />
+                <TextHover />
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

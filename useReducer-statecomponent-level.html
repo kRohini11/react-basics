@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            const init = {
+                cnt: 0,
+                name: "Sachin"
+            }
+            const reducer = (state, action) => {
+                switch (action.type) {
+                    case "COUNT_UPDATE":
+                        return {
+                            ...state,
+                            cnt: action.payload
+                        }
+                    case "NAME_UPDATE":
+                        return {
+                            ...state,
+                            name: action.payload
+                        }
+
+                }
+                return state;
+
+            }
+            const [state, dispatch] = React.useReducer(reducer, init);
+
+            const Increment = () => {
+                dispatch({
+                    type: "COUNT_UPDATE",
+                    payload: state.cnt + 1
+                })
+
+            }
+            const ToggleName = () => {
+                dispatch({
+                    type: "NAME_UPDATE",
+                    payload: state.name == "Sachin" ? "Dhoni" : "Sachin"
+                })
+            }
+            return <div>
+                <h1>UseReducer hook -- manage the state at component level</h1>
+                <h2>{state.cnt}</h2>
+                <button onClick={Increment}>Increment</button>
+                <h2>{state.name}</h2>
+                <button onClick={ToggleName}>Toggle</button>
+            </div>
+        }
+
+        const container = document.getElementById("root");
+        const result = ReactDOM.createRoot(container);
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

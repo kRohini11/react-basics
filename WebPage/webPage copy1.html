@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+    <style>
+        .header {
+            background: red;
+            font-size: 20px;
+            font-weight: bold;
+
+
+        }
+
+        body {
+            margin: 0px;
+        }
+
+        ul {
+            background: antiquewhite;
+            list-style: none;
+            text-align: right;
+            line-height: 40px;
+        }
+
+        ul>li {
+            /* text-align: right; */
+            font-weight: bold;
+            letter-spacing: 5px;
+            display: inline;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .active {
+            color: red;
+            text-shadow: 2px 2px white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const ctx = React.createContext();
+        const { Provider } = ctx;
+
+        const Home = () => {
+            const ctxData = React.useContext(ctx);
+            return <h1 className="text-center my-5">{ctxData.home}</h1>
+        }
+        const About = () => {
+            const ctxData = React.useContext(ctx);
+            return <h1 className="text-center my-5">{ctxData.about}</h1>
+        }
+        const Contact = () => {
+            const ctxData = React.useContext(ctx);
+            return <h1 className="text-center my-5">{ctxData.contact}</h1>
+        }
+        const Menu = () => {
+
+            const [menuList, setmenuList] = React.useState("h");
+            const handleClick = (opt) => {
+                setmenuList(opt)
+                console.log(opt)
+            }
+            return <div>
+                <nav>
+                    <ul>
+                        {/* <li>{menuList}</li>*/}
+                        <li className={menuList === 'h' ? 'active' : ''} onClick={() => { handleClick('h') }}>Home</li>
+                        <li className={menuList === 'a' ? 'active' : ''} onClick={() => handleClick('a')}>About </li>
+                        <li className={menuList === 'c' ? 'active' : ''} onClick={() => handleClick('c')}>Contact</li>
+                    </ul>
+                </nav>
+                {menuList === 'h' && <Home />}
+                {menuList === 'a' && <About />}
+                {menuList === 'c' && <Contact />}
+            </div>
+        }
+        const Footer = () => {
+            return <footer><div className="position-fixed w-100 bg-primary bottom-0 text-center text-white">&copy; right belongs to me</div></footer>
+        }
+        const Header = () => {
+            return <header><div className="header text-center text-white">React web page without routing</div></header>
+        }
+        const App = () => {
+            const data = {
+                home: "This is home Component",
+                about: "This is about Component",
+                contact: "This is contact Component"
+            }
+            return <div>
+                <Header />
+                <Provider value={data}>
+                    <Menu />
+                </Provider>
+                <Footer />
+
+            </div>
+
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

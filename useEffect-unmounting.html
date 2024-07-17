@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const A = () => {
+            const fn = () => {
+                console.log("i am unmounting")
+            }
+            React.useEffect(()=>
+            {
+                return()=>{
+                    fn();
+                }
+                
+            })
+            return <h1>A Component</h1>
+        } 
+        const App = () => {
+            const [cnt, setCnt] = React.useState(0);
+            return <div>
+                <h1>{cnt}</h1>
+                <button onClick={() => { setCnt(cnt + 1) }}>Increment</button>
+                {cnt % 2 === 0 && <A />}
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

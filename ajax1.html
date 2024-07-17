@@ -1,0 +1,83 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const Table = (props) => {
+            const { header, data, columns } = props;
+            return <div>
+                <table border="2px">
+                    <thead>
+                        <tr>{
+                            header?.map((ele, index) => {
+                                return <th key={`th_${index}`}>{ele}</th>
+
+                            })
+                        }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data?.map((obj, index) => {
+                                return <tr key={`tr_${index}`}>
+                                    {
+                                        columns?.map((val, indx) => {
+                                            return <td key={`td_${indx}`}>{obj[val]}</td>
+
+                                        })
+                                    }
+
+                                </tr>
+
+                            })}
+                    </tbody>
+                </table>
+
+            </div>
+        }
+
+        const App = () => {
+
+            const [result, setResult] = React.useState([]);
+
+            const handleClick = () => {
+
+                const res = new XMLHttpRequest();
+                //get the url
+                res.open("get", "http://jsonplaceholder.typicode.com/users");
+                // send the req
+                res.send();
+
+                //success
+                res.onload = () => {
+                    console.log("success");
+                    const resData = JSON.parse(res.responseText);
+                    setResult(resData)
+                }
+                //failure
+                res.onerror = () => {
+                    console.log("error");
+                }
+            }
+            return <div>
+                <button onClick={handleClick}>Get User</button>
+                <p>
+                    {result.length > 0 ? <Table header={["Id", "USERNAME", "NAME", "EMAIL"]} data={result} columns={["id", "username", "name", "email"]} /> : "No data"}
+
+                </p>    </div>
+        }
+
+        const rr = ReactDOM.createRoot(document.getElementById("root"));
+        rr.render(<App />)
+
+    </script>
+</body>
+
+</html>

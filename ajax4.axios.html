@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+    <script src="axios.js"></script>
+    <link rel="stylesheet" href="bootstrap.css" />
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const Table = ({ headers, data, columns }) => {
+            return <div className="table-responsive">
+                <table border="2px" className="table table-striped">
+                    <thead>
+                        <tr>{
+                            headers?.map((ele, indx) => {
+                                return <th key={`th_${indx}`}>{ele}</th>
+                            })
+                        }
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            data?.map((ele, indx) => {
+                                return <tr key={`th_${indx}`}>{
+                                    columns?.map((val, index) => {
+                                        return <td key={`th_${index}`}>{ele[val]}</td>
+                                    })
+
+                                }</tr>
+                            })
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        }
+        const App = () => {
+            const [result, setData] = React.useState([]);
+            const [isLoading, setIsLoading] = React.useState(false)
+            const handlePhotos = () => {
+                alert("photos");
+                setIsLoading(true)
+                axios.get("https://jsonplaceholder.typicode.com/photos")
+                    .then((response) => {
+                        console.log("success", response?.data);
+                        setData(response?.data);
+                    })
+                    .catch((response) => {
+                        console.log("fail", response);
+                    })
+                    .finally(() => {
+                        console.log("success/failure");
+                        setIsLoading(false)
+                    })
+            }
+            return <div>
+                <button className="btn btn-primary" onClick={handlePhotos}>Get Photos</button>
+                {isLoading && <div>loading.... </div>}
+                {result.length > 0 && <Table headers={["ID", "TITLE", "URL"]} data={result} columns={["id", "title", "url"]} />}
+            </div>
+        }
+        const container = ReactDOM.createRoot(document.getElementById("root"));
+        container.render(<App />);
+
+    </script>
+</body>
+
+</html>

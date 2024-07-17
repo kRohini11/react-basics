@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body> 
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        function Players(props){
+            // console.log(obj);
+            var {n,loc,runs}=props;
+            console.log(props)
+            return <div>My Name is {n}</div>
+        }
+        function App() {
+            return <div>
+                <Players n="Sachin" loc="Mumbai" runs="1000"></Players>
+                <Players n="Virat" loc="Delhi" runs="222000" />
+                <Players n="Sachin" loc="Mumbai" runs="1000" />
+            </div>
+
+        }
+
+       // var container = document.getElementById("root")
+        var result=ReactDOM.createRoot(document.getElementsByTagName("div")[0]);
+
+        result.render(<App />)
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            const [data, setData] = React.useState([]);
+            const [name, setName] = React.useState("");
+            const fnChange = (eve) => {
+                setName(eve.target.value);
+
+            }
+            const handleClick = () => {
+                if (!data.includes(name)){
+                    setData([...data,name]);
+                }
+                else{
+                    alert(name +" already exist")
+                }
+
+            }
+            return <div>
+                <p>
+                    <b>Name:</b>
+                    <input onChange={fnChange} />
+                </p>
+                <p>
+                    <button onClick={handleClick}>Add To List</button>
+                </p>
+                <ol>{
+                    data.map((ele, index) => {
+                        return <li key={`li_${index}`}>{ele}</li>
+                    })
+                }
+                </ol>
+            </div>
+        }
+
+        const container = ReactDOM.createRoot(document.getElementById("root"));
+        container.render(<App />);
+    </script>
+</body>
+
+</html>

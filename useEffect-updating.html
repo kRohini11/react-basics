@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+
+            const [name, setName] = React.useState("Sachin");
+            const [cnt, setCnt] = React.useState(0);
+            const fn = () => {
+                console.log("first time load and for every name change");
+            }
+
+            React.useEffect(() => {
+                fn()
+            }, [name])
+            return <div>
+                <h1>{name}</h1>
+                <button onClick={() => { setName(name === "Sachin" ? "Dhoni" : "Sachin"); }}>Click</button>
+                <h1>{cnt}</h1>
+                <button onClick={() => { setCnt(cnt + 1) }}>Click</button>
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

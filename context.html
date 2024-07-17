@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const ctx = React.createContext();
+        const { Provider } = ctx;
+
+        const D = () => {
+            const ctxData = React.useContext(ctx);
+            return <div>
+                <h1>D:{ctxData}</h1>
+            </div>
+
+        }
+        const C = () => {
+            return <div>
+                <h1>C</h1>
+                <D />
+            </div>
+        }
+        const B = () => {
+            return <div>
+                <h1>B</h1>
+                <C />
+            </div>
+        }
+        const A = () => {
+            return <div>
+                <h1>A</h1>
+                <B />
+            </div>
+        }
+        const App = () => {
+
+            const [name, setName] = React.useState("");
+            const handleChange = (eve) => {
+                const { value } = eve.target;
+                setName(value);
+                // console.log(value);
+                //console.log(eve.target.value);
+            }
+            const handleClick = () => {
+                console.log(name);
+                // alert("handle")
+            }
+            return <div>
+                <p>Enter Name: <input onChange={handleChange} /></p>
+                <p><button onClick={handleClick}>Submit</button></p>
+                <Provider value={name}>
+                    <A />
+                </Provider>
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

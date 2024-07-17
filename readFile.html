@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+           
+            const [base64, setBase64] = React.useState();
+
+            const fnChange = (eve) => {
+                const file = eve?.target?.files?.[0];
+               
+                const { size, type } = file;
+
+                const fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = () => {
+                    setBase64(fileReader.result);
+                }
+
+                fileReader.onerror = () => {
+                    setBase64("")
+
+                }
+
+
+            }
+           
+            return <div>
+                <h2>select file</h2>
+                <input type="file" onChange={fnChange} />
+                <iframe src={base64} height="500vh" width="100%" />
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>

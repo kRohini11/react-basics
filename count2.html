@@ -1,0 +1,43 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const App = () => {
+
+            var val = React.useRef();
+            console.log(val);
+
+            let count = 0;
+            const handleClick = () => {
+                console.log("1", val);
+                count = count + 1;
+                val.current.innerText = count
+            }
+
+            return <div>
+                <h1 ref={val}> {count}</h1>
+                <button onClick={handleClick}>Increment</button>
+            </div>
+
+        }
+
+        var containerRef = document.getElementById("root");
+        var result = ReactDOM.createRoot(containerRef);
+
+        result.render(<App />)
+
+
+    </script>
+</body>
+
+</html>

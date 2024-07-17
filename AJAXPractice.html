@@ -1,0 +1,126 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+    <script src="axios.js"></script>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const Pagination = ({ totalPages, pageNo, handlePagination }) => {
+            const [goToPage, setGoToPage] = React.useState();
+            const fnGo = () => {
+                if (goToPage > totalPages) return;
+                handlePagination("G", Number(goToPage))
+            }
+            const fnPrev = () => {
+                handlePagination("P")
+            }
+            const fnNext = () => {
+                handlePagination("N")
+
+            }
+            return <div className="container-fluid">
+                <div className="row">
+                    <div className="col-sm-4 text-start">
+                        <b>Go To:</b>
+                        <input type="number" onChange={(eve) => setGoToPage(eve?.target?.value)} />
+                        <button onClick={fnGo} className="btn btn-primary">Go</button>
+                    </div>
+                    <div className="col-sm-4 text-center">
+                        <button disabled={pageNo == 1} onClick={fnPrev} className="btn btn-primary">Prev</button>
+                        <b>{pageNo}</b>
+                        <button disabled={pageNo == totalPages} onClick={fnNext} className="btn btn-primary">Next</button>
+                    </div>
+                    <div className="col-sm-4 text-end">
+                        <b>Total Pages:{totalPages}</b>
+                    </div>
+                </div>
+            </div>
+        }
+        const Table = ({ headers, data, columns }) => {
+            const [pageNo, setPageNo] = React.useState(1);
+            const [currentData, setCurrentData] = React.useState();
+            React.useEffect(() => {
+                const end = pageNo * perPage;
+                const start = end - perPage;
+                let tblData = data.slice(start, end);
+                setCurrentData(tblData)
+            }, [pageNo])
+            const handlePagination = (opt, pageNoIn) => {
+                switch (opt) {
+                    case "P":
+                        setPageNo(pageNo - 1)
+                        break;
+                    case "N":
+                        setPageNo(pageNo + 1)
+                        break;
+                    default: setPageNo(pageNoIn)
+                }
+            }
+            const perPage = 10;
+            return <div className="table-responsive">
+                <Pagination totalPages={Math.ceil(data?.length / perPage)} pageNo={pageNo} handlePagination={handlePagination} />
+                <table className="table table-striped">
+                    <thead>
+                        <tr>{
+                            headers?.map((ele, index) => {
+                                return <th key={`th_${index}`}>{ele}</th>
+                            })
+                        }
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            currentData?.map((ele, index) => {
+                                return <tr key={`th_${index}`}>{
+                                    columns?.map((val, indx) => {
+                                        return <td key={`td_${indx}`}>{ele[val]}</td>
+                                    })
+                                }</tr>
+                            })
+                        }
+                    </tbody>
+                </table>
+                <Pagination totalPages={Math.ceil(data?.length / perPage)} pageNo={pageNo} handlePagination={handlePagination} />
+
+            </div>
+        }
+        const App = () => {
+            const [resultData, setResultData] = React.useState([]);
+            const [loading, setLodaing] = React.useState(false)
+            const handleClick = () => {
+                alert("photos");
+                setLodaing(true);
+                axios.get("https://jsonplaceholder.typicode.com/photos")
+                    .then((response) => {
+                        console.log("success", response?.data)
+                        setResultData(response?.data)
+                    })
+                    .catch((response) => {
+                        console.log("failure", response)
+                    })
+                    .finally(() => {
+                        console.log("success/failure");
+                        setLodaing(false)
+                    })
+            }
+            return <div>
+                <button onClick={handleClick} className="btn btn-primary">Get Photos</button>
+                {loading && <div>Loding....</div>}
+                {resultData?.length > 0 && <Table headers={["ID", "TITLE", "URL"]} data={resultData} columns={["id", "title", "url"]} />}
+            </div>
+        }
+
+        const container = ReactDOM.createRoot(document.getElementById("root"));
+        container.render(<App />);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const Child = React.memo(() => {
+            console.log("child component")
+            return <div>
+                <h2>Child</h2>
+            </div>
+        })
+        const App = () => {
+            console.log("App component")
+            const [cnt, setCnt] = React.useState(0);
+            return <div>
+                <h2>{cnt}</h2>
+                <button onClick={() => setCnt(cnt + 1)}>Increment</button>
+                <Child />
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

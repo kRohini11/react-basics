@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+    <link rel="stylesheet" href="bootstrap.css" />
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => {
+            return <div>
+                <h2 className="text-center">Login</h2>
+                <div className="row mb-3">
+                    <div className="col-sm-5 text-end">
+                        <label>User Id:</label>
+                    </div>
+                    <div className="col-sm-3">
+                        <input type="text" />
+                    </div>
+                    <div className="col-sm-4">
+                        <b className="text-danger">Invalid User Id</b>
+                    </div>
+                </div>
+                <div className="row mb-3">
+                    <div className="col-sm-5 text-end">
+                        <label>Password:</label>
+                    </div>
+                    <div className="col-sm-3">
+                        <input type="password" />
+                    </div>
+                    <div className="col-sm-4">
+                        <b className="text-danger">Invalid password</b>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

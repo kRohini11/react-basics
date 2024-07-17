@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const Question = ({ id, que, options, type, index,handleChange }) => {
+
+            const opt = ['A', 'B', 'C', 'D']
+
+            return <div>
+                <h3>{index + 1}.{que}</h3>
+                {
+                    options.map((val, ind) => {
+                        return <p key={`p_${ind}`}>
+                            {opt[ind]} 
+                            <input value={opt[ind]} name={id} onChange={handleChange} type={type == "S" ? 'radio' : "checkbox"} />
+                            {val}</p>
+                    })
+                }
+               
+            </div>
+        }
+
+
+        const App = () => {
+            const AnsKey = { "1": "A", "2": "AD", "3": "B", "4": "BD" };
+            const [stdAns, setStdAns] = React.useState({})
+
+            const questions = [
+                {
+                    "id": 1,
+                    "que": "React is a library or Framework?",
+                    "options": ["library", "Framework"],
+                    "type": "S"
+                },
+                {
+                    "id": 2,
+                    "que": "Below which are React hooks?",
+                    "options": ["useRef", "state", "props", "useState"],
+                    "type": "M"
+                },
+                {
+                    "id": 3,
+                    "que": "How to pass data from child to parent?",
+                    "options": ["ref", "callback", "props", "none of the above"],
+                    "type": "S"
+                },
+                {
+                    "id": 4,
+                    "que": "How many ways we can pass the data from parent to child?",
+                    "options": ["class", "redux", "context", "object"],
+                    "type": "M"
+                }
+
+            ]
+
+            const handleChange = (eve) => {
+                const { name, value, type, checked } = eve.target;
+                if (type === 'checkbox') {
+                    const checkedValues = stdAns[name] ? stdAns[name].split("") : []
+                    console.log(checkedValues)
+                    if (checked) {
+                        checkedValues.push(value)
+                    }
+                    else {
+                        const index = checkedValues.indexOf(value)
+                        console.log(index)
+                        checkedValues.splice(index, 1)
+                    }
+                    setStdAns({ ...stdAns, [name]: checkedValues.sort().join("") })
+                }
+                else {
+                    setStdAns({ ...stdAns, [name]: value })
+                }
+            }
+
+            const fnSubmit = () => {
+                let marks = 0;
+                for (let key in stdAns) {
+                    if (AnsKey[key] === stdAns[key]) {
+                        marks = marks + 1;
+                    }
+                }
+
+                alert(`you got ${marks} marks `)
+
+
+            }
+
+            return <div>
+                <h1>Quiz</h1>
+                {
+                    questions.map((obj, indx) => {
+                        return <Question key={`que_${indx}`}  handleChange={handleChange} index={indx} {...obj} />
+                    })
+                }
+
+                <button onClick={fnSubmit}>Submit</button>
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+
+    </script>
+</body>
+
+</html>

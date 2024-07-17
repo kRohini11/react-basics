@@ -1,0 +1,48 @@
+<html>
+
+<head>
+    <script src="react.js"></script>
+    <script src="reactDOM.js"></script>
+    <script src="babel.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const Child = ({ fn }) => {
+
+            const [result, setResult] = React.useState();
+
+            React.useEffect(() => {
+                console.log("Child Rendered");
+                setResult(fn())
+            }, [fn])
+            return <div>
+                <h2>Child:{result}</h2>
+            </div>
+        }
+        const App = () => {
+            const [cnt, setCnt] = React.useState(0);
+            const [name, setName] = React.useState("Sachin");
+
+            const EvenOrOdd = React.useCallback(() => {
+                console.log("5k lines of code");
+                return cnt % 2 === 0 ? "Even" : "Odd"
+            }, [cnt])
+
+            return <div>
+                <h2>{cnt}</h2>
+                <button onClick={() => setCnt(cnt + 1)}>Increment</button>
+                <Child fn={EvenOrOdd} />
+                <h2>{name}</h2>
+                <button onClick={() => setName(name === "Sachin" ? "Dohni" : "Sachin")}>Toggle</button>
+
+            </div>
+        }
+
+        const result = ReactDOM.createRoot(document.getElementById("root"));
+        result.render(<App />)
+    </script>
+</body>
+
+</html>
